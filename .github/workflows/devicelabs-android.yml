@@ -24,7 +24,7 @@ jobs:
   build-android:
     needs: [generate-bridge]
     name: build devicelabs android apk (arm64)
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04  # 24.04 gcc quá mới → build vcpkg deps (libvpx/pkgconf) lỗi khi không có binary cache
     env:
       target: aarch64-linux-android
       arch: aarch64
