@@ -89,7 +89,12 @@ jobs:
           doNotCache: false
 
       - name: Install vcpkg dependencies
+        env:
+          ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
+          ANDROID_NDK_ROOT: ${{ steps.setup-ndk.outputs.ndk-path }}
+          ANDROID_NDK: ${{ steps.setup-ndk.outputs.ndk-path }}
         run: |
+          echo "Dùng NDK: $ANDROID_NDK_HOME"
           if ! ./flutter/build_android_deps.sh "arm64-v8a"; then
             find "${VCPKG_ROOT}/" -name "*.log" | while read -r _1; do
               echo "$_1:"; echo "======"; cat "$_1"; echo "======"; echo ""
