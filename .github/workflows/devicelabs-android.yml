@@ -104,6 +104,13 @@ jobs:
           name: bridge-artifact
           path: ./
 
+      - name: Bake server config (host + key của device-labs)
+        run: |
+          CFG=libs/hbb_common/src/config.rs
+          sed -i 's|rs-ny.rustdesk.com|103.188.83.4|g' "$CFG"
+          sed -i 's|OeVuKk5nlHiXp+APNn0Y3pC1Iwpwn44JGqrQCsWqmBw=|RpLvqF7NJ2xEpjIsxRXQCOSIujVE04EoD8fjpeUgQG4=|g' "$CFG"
+          echo "== Baked =="; grep -nE "RENDEZVOUS_SERVERS|RS_PUB_KEY" "$CFG" | head
+
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@e97e2d8cc328f1b50210efc529dca0028893a2d9 # v1
         with:
